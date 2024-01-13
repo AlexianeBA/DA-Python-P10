@@ -10,10 +10,7 @@ class User(AbstractUser):
     password = models.CharField(max_length=128, blank=False)
     age = models.IntegerField(blank=True, null=True)
     
-    # Add related_name to resolve clash
-    groups = models.ManyToManyField(Group, related_name='user_set_custom')
-    user_permissions = models.ManyToManyField(Permission, related_name='user_set_custom')
-
+    
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username', 'first_name', 'last_name']
     
