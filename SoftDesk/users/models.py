@@ -1,9 +1,9 @@
 from django.db import models
-from django.contrib.auth.models import Permission
-from django.contrib.auth.models import AbstractUser, Group
-from datetime import datetime
-# Create your models here.
 
+from django.contrib.auth.models import AbstractUser
+from datetime import datetime
+
+# Create your models here.
 class User(AbstractUser):
     # STATUT = (('option1', 'Chef de projet')('option2', 'Manager'),('option3', 'Employé'))
     CHOICES = (('option1', 'Oui'), ('option2', 'Non'))
@@ -34,10 +34,3 @@ class User(AbstractUser):
         if self.age is not None and self.age < 15:
             raise ValueError("L'utilisateur doit avoir au moins 15 ans pour créer un espace.")
         super().save(*args, **kwargs)
-class Project(models.Model):
-    TYPE_PROJECT = (('option1', 'Option 1'),('option2', 'Option 2'),('option3', 'Option 3'))
-    name = models.CharField(max_length=128, blank=True, verbose_name="Nom du projet")
-    description = models.CharField(max_length=1020, blank=True)
-    type_project = models.CharField(max_length=10, choices=TYPE_PROJECT)
-    created_at = models.DateField(auto_now_add=True)
-    

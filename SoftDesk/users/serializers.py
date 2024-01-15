@@ -1,13 +1,18 @@
 from rest_framework import serializers
-from .models import User, Project
-
+from .models import User
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ['id', 'username', 'first_name', 'last_name', 'email', 'password', 'age','date_of_birth', 'can_be_contacted', 'can_data_be_shared']
         
         
-class ProjectSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Project
-        fields = ['name', 'description', 'type_project', 'created_at']
+        def create(self, validated_data):
+            user = User.objects.create(
+                email=validated_data["email"],
+                first_name=validated_data["first_name"],
+                last_name=validated_data["last_name"],
+            )
+
+            user.set_password(validated_data["password"])
+            user.save()
+            return user
