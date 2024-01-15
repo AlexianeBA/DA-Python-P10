@@ -2,6 +2,7 @@ from django.shortcuts import render
 from .models import User, Project
 from rest_framework import viewsets
 from .serializers import UserSerializer, ProjectSerializer
+
 # Create your views here.
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
@@ -10,3 +11,4 @@ class UserViewSet(viewsets.ModelViewSet):
 class ProjectViewSet(viewsets.ModelViewSet):
     queryset = Project.objects.all()
     serializer_class = ProjectSerializer
+    

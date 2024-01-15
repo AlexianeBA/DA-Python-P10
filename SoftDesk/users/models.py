@@ -40,3 +40,4 @@ class Project(models.Model):
     description = models.CharField(max_length=1020, blank=True)
     type_project = models.CharField(max_length=10, choices=TYPE_PROJECT)
     created_at = models.DateField(auto_now_add=True)
+    
