@@ -1,7 +1,9 @@
+
 from django.db import models
 
 from django.contrib.auth.models import AbstractUser
 from datetime import datetime
+from Project.models import Project
 
 # Create your models here.
 class User(AbstractUser):
@@ -34,3 +36,12 @@ class User(AbstractUser):
         if self.age is not None and self.age < 15:
             raise ValueError("L'utilisateur doit avoir au moins 15 ans pour créer un espace.")
         super().save(*args, **kwargs)
+
+
+class Contributor(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='project_contributor')
+    project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name='project_contributor')
+    
+    
+    def __str__(self):
+        return f'{self.user}'

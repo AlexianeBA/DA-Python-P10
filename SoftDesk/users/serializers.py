@@ -1,5 +1,6 @@
 from rest_framework import serializers
-from .models import User
+from .models import User, Contributor
+from Project.models import Project
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
@@ -16,3 +17,30 @@ class UserSerializer(serializers.ModelSerializer):
             user.set_password(validated_data["password"])
             user.save()
             return user
+        
+        
+class ContributorSerializer(serializers.ModelSerializer):
+
+    class Meta(object):
+        model = Contributor
+        fields = ('id',
+                  'user',
+                  'project',
+                  )
+
+    def validate_user(self, value):
+        user = self.context['request'].user
+        if user == value:
+            raise serializers.ValidationError(
+                "L'auteur du projet ne peut pas être contributeur")
+        return value
+
+    def create(self, validated_data):
+        projet = Project.objects.get(pk=self.context.get("view").kwargs["project_pk"])
+
+        contributor = Contributor.objects.create(
+            user=validated_data["user"],
+            project=projet
+        )
+        contributor.save()
+        return contributor
