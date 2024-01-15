@@ -15,8 +15,8 @@ class User(AbstractUser):
     password = models.CharField(max_length=128, blank=False)
     age = models.IntegerField(blank=True, null=True)
     date_of_birth = models.DateField(null=True, blank=True)
-    can_be_contacted = models.CharField(max_length=7, choices = CHOICES, default='Oui', verbose_name="Etre contacté")
-    can_data_be_shared = models.CharField(max_length=7, choices = CHOICES, default='Oui', verbose_name='Partage de données')
+    can_be_contacted = models.CharField(max_length=7, choices = CHOICES, default='Oui', verbose_name="Peut être contacté?")
+    can_data_be_shared = models.CharField(max_length=7, choices = CHOICES, default='Oui', verbose_name='Peut-on partager les données')
     
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username', 'first_name', 'last_name']

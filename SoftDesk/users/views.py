@@ -12,5 +12,3 @@ class ContributorViewSet(viewsets.ModelViewSet):
     queryset = Contributor.objects.all()
     serializer_class = ContributorSerializer
    
-    def get_queryset(self):
-        return Contributor.objects.all()
