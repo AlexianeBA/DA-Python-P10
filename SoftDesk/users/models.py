@@ -16,7 +16,7 @@ class User(AbstractUser):
     age = models.IntegerField(blank=True, null=True)
     date_of_birth = models.DateField(null=True, blank=True)
     can_be_contacted = models.CharField(max_length=7, choices = CHOICES, default='Oui', verbose_name="Peut être contacté?")
-    can_data_be_shared = models.CharField(max_length=7, choices = CHOICES, default='Oui', verbose_name='Peut-on partager les données')
+    can_data_be_shared = models.CharField(max_length=7, choices = CHOICES, default='Oui', verbose_name='Peut-on partager les données?')
     
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username', 'first_name', 'last_name']
@@ -41,6 +41,8 @@ class User(AbstractUser):
 class Contributor(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='project_contributor')
     project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name='project_contributor')
+    # issue = 
+    # comment =
     
     
     def __str__(self):

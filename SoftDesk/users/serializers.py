@@ -19,7 +19,7 @@ class UserSerializer(serializers.ModelSerializer):
             return user
         
         
-class ContributorSerializer(serializers.ModelSerializer):
+class ContributorProjectSerializer(serializers.ModelSerializer):
 
     class Meta(object):
         model = Contributor
@@ -35,11 +35,11 @@ class ContributorSerializer(serializers.ModelSerializer):
                 "L'auteur du projet ne peut pas être contributeur")
         return value
 
-    def create(self, validated_data):
+    def perform_create(self, serialize):
         projet = Project.objects.get(pk=self.context.get("view").kwargs["project_pk"])
 
         contributor = Contributor.objects.create(
-            user=validated_data["user"],
+            user=serialize["user"],
             project=projet
         )
         contributor.save()
