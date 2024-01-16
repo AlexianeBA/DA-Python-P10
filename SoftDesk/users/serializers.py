@@ -7,14 +7,14 @@ class UserSerializer(serializers.ModelSerializer):
         fields = ['id', 'username', 'first_name', 'last_name', 'email', 'password', 'age','date_of_birth', 'can_be_contacted', 'can_data_be_shared']
         
         
-        def create(self, validated_data):
+        def create(self, serializer):
             user = User.objects.create(
-                email=validated_data["email"],
-                first_name=validated_data["first_name"],
-                last_name=validated_data["last_name"],
+                email=serializer["email"],
+                first_name=serializer["first_name"],
+                last_name=serializer["last_name"],
             )
 
-            user.set_password(validated_data["password"])
+            user.set_password(serializer["password"])
             user.save()
             return user
         
