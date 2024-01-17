@@ -18,11 +18,15 @@ from django.contrib import admin
 from django.urls import include, path
 from rest_framework import routers
 from users.urls import router as user_router
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView, TokenVerifyView
 
 router = routers.DefaultRouter()
 router.registry.extend(user_router.registry)
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api-auth/', include('rest_framework.urls')),
+    path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('token/verify/', TokenVerifyView.as_view(), name='token_verify'),
     path('', include(router.urls))
 ]
