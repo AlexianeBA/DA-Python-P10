@@ -9,6 +9,7 @@ from Project.models import Project
 class User(AbstractUser):
     # STATUT = (('option1', 'Chef de projet')('option2', 'Manager'),('option3', 'Employé'))
     CHOICES = (('option1', 'Oui'), ('option2', 'Non'))
+    username = models.CharField(max_length=255, unique=True)
     first_name = models.CharField(max_length=128, blank=True)
     last_name = models.CharField(max_length=128, blank=True)
     email = models.EmailField(blank=False, unique=True)
