@@ -6,7 +6,7 @@ class IssueSerializer(serializers.ModelSerializer):
     class Meta:
         model=Issue
         fields=['title', 'description', 'tag', 'priority', 'status', 'project', 'author', 'assigned', 'created']
-        
+        #méthode à mettre dans views + à modifier
         def create(self, serializer):
             author = self.context.get("request", None).user
             assigned = self.context.get("request", None).user

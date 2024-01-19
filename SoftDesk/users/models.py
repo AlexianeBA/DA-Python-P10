@@ -17,7 +17,7 @@ class User(AbstractUser):
     date_of_birth = models.DateField(null=True, blank=True)
     can_be_contacted = models.CharField(max_length=7, choices = CHOICES, default='Oui', verbose_name="Peut être contacté?")
     can_data_be_shared = models.CharField(max_length=7, choices = CHOICES, default='Oui', verbose_name='Peut-on partager les données?')
-    
+    is_active = models.BooleanField(default=True)
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username', 'first_name', 'last_name']
     
@@ -35,6 +35,7 @@ class User(AbstractUser):
     def save(self, *args, **kwargs):
         if self.age is not None and self.age < 15:
             raise ValueError("L'utilisateur doit avoir au moins 15 ans pour créer un espace.")
+        self.set_password(self.password)
         super().save(*args, **kwargs)
 
 
