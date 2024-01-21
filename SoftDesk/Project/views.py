@@ -13,9 +13,9 @@ from users.models import Contributor
 class ProjectViewSet(viewsets.ModelViewSet):
     queryset = Project.objects.all()
     serializer_class = ProjectSerializer
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
     
-#méthode à implémenter dans chaque views
+
     def list(self, request):
         query = request.GET.get('query', None)
         

@@ -4,11 +4,12 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from datetime import datetime
 from Project.models import Project
-
+from issue.models import Issue
+from comment.models import Comment
 # Create your models here.
 class User(AbstractUser):
     # STATUT = (('option1', 'Chef de projet')('option2', 'Manager'),('option3', 'Employé'))
-    CHOICES = (('option1', 'Oui'), ('option2', 'Non'))
+    CHOICES = (('oui', 'Oui'), ('non', 'Non'))
     username = models.CharField(max_length=255, unique=True)
     first_name = models.CharField(max_length=128, blank=True)
     last_name = models.CharField(max_length=128, blank=True)
@@ -43,8 +44,8 @@ class User(AbstractUser):
 class Contributor(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='project_contributor')
     project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name='project_contributor')
-    # issue = 
-    # comment =
+    issue = models.ForeignKey(Issue, on_delete=models.CASCADE, related_name='contributor_issue', null=True, blank=True)
+    comment = models.ForeignKey(Comment, on_delete=models.CASCADE, related_name='contributor_comment', null=True, blank=True)
     
     
     def __str__(self):

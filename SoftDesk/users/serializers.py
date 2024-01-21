@@ -26,12 +26,14 @@ class ContributorProjectSerializer(serializers.ModelSerializer):
                 "L'auteur du projet ne peut pas être contributeur")
         return value
 
-    def perform_create(self, serialize):
-        projet = Project.objects.get(pk=self.context.get("view").kwargs["project_pk"])
+    def perform_create(self, serializer):
+        project = Project.objects.get(pk=self.context.get("view").kwargs["project_pk"])
 
         contributor = Contributor.objects.create(
-            user=serialize["user"],
-            project=projet
+            user=serializer.validated_data["user"],
+            project=project,
+            issue=serializer.validated_data.get("issue"),
+            comment=serializer.validated_data.get("comment")
         )
         contributor.save()
         return contributor
