@@ -29,4 +29,4 @@ class UserViewSet(viewsets.ModelViewSet):
 class ContributorProjectViewSet(viewsets.ModelViewSet):
     queryset = Contributor.objects.all()
     serializer_class = ContributorProjectSerializer
-    # permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated]

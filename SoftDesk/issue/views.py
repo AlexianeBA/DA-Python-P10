@@ -11,7 +11,7 @@ from rest_framework import status
 class IssueViewSets(viewsets.ModelViewSet):
     queryset = Issue.objects.all()
     serializer_class = IssueSerializer
-    # permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated]
 
 
     def list(self, request):

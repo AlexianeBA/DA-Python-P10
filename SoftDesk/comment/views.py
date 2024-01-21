@@ -10,7 +10,8 @@ from rest_framework import status
 class CommentViewSets(viewsets.ModelViewSet):
     queryset= Comment.objects.all()
     serializer_class = CommentSerializer
-    # permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated]
+    
     def list(self, request):
         query = request.GET.get('query', None)
         
