@@ -3,14 +3,14 @@ from django.shortcuts import render
 from rest_framework import viewsets
 from .models import Comment
 from .serializers import CommentSerializer
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
 from rest_framework.response import Response
 from rest_framework import status
 # Create your views here.
 class CommentViewSets(viewsets.ModelViewSet):
     queryset= Comment.objects.all()
     serializer_class = CommentSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated, IsAuthenticatedOrReadOnly]
     
     def list(self, request):
         query = request.GET.get('query', None)

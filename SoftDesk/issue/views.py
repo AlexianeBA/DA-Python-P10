@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from rest_framework import viewsets
 from issue.serializers import IssueSerializer
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
 
 from .models import Issue
 from rest_framework.response import Response
@@ -11,7 +11,7 @@ from rest_framework import status
 class IssueViewSets(viewsets.ModelViewSet):
     queryset = Issue.objects.all()
     serializer_class = IssueSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated, IsAuthenticatedOrReadOnly]
 
 
     def list(self, request):
