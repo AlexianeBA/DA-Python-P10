@@ -20,6 +20,7 @@ class User(AbstractUser):
     can_be_contacted = models.CharField(max_length=7, choices = CHOICES, default='Oui', verbose_name="Peut être contacté?")
     can_data_be_shared = models.CharField(max_length=7, choices = CHOICES, default='Oui', verbose_name='Peut-on partager les données?')
     is_active = models.BooleanField(default=True)
+    created_at = models.DateField(auto_now_add=True)
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username', 'first_name', 'last_name']
     
