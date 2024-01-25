@@ -6,13 +6,15 @@ from rest_framework.permissions import IsAuthenticated
 from .permissions import IsAuthorOfComment
 from rest_framework.response import Response
 from rest_framework import status
+from rest_framework.pagination import PageNumberPagination
 
 
 # Create your views here.
 class CommentViewSets(viewsets.ModelViewSet):
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer
-    permission_classes = [IsAuthenticated, IsAuthorOfComment]
+    permission_classes = [IsAuthorOfComment]
+    pagination_class = PageNumberPagination
 
     def list(self, request):
         query = request.GET.get("query", None)
@@ -21,7 +23,11 @@ class CommentViewSets(viewsets.ModelViewSet):
             query_set = Comment.objects.filter(title__icontains=query)
         else:
             query_set = Comment.objects.all()
+        page = self.paginate_queryset(query_set)
 
+        if page is not None:
+            serializer = self.serializer_class(page, many=True)
+            return self.get_paginated_response(serializer.data)
         return Response(
             self.serializer_class(query_set, many=True).data, status=status.HTTP_200_OK
         )

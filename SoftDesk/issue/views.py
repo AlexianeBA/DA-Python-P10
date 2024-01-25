@@ -3,7 +3,7 @@ from rest_framework import viewsets
 from issue.serializers import IssueSerializer
 from rest_framework.permissions import IsAuthenticated
 from .permissions import IsAuthorOfIssue, IsContributorOFIssue
-
+from rest_framework.pagination import PageNumberPagination
 from .models import Issue
 from rest_framework.response import Response
 from rest_framework import status
@@ -14,6 +14,7 @@ class IssueViewSets(viewsets.ModelViewSet):
     queryset = Issue.objects.all()
     serializer_class = IssueSerializer
     permission_classes = [IsAuthenticated, IsAuthorOfIssue, IsContributorOFIssue]
+    pagination_class = PageNumberPagination
 
     def list(self, request):
         query = request.GET.get("query", None)

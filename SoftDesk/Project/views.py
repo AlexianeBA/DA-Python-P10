@@ -6,15 +6,17 @@ from .models import Project
 from rest_framework import viewsets
 from .serializers import ProjectSerializer
 from rest_framework.permissions import IsAuthenticated
-from .permissions import IsAuthorOfProject, IsContributorOFproject
+from .permissions import IsAuthorOfProject, IsContributorOfProject
 from users.models import Contributor
+from rest_framework.pagination import PageNumberPagination
 
 
 # Create your views here.
 class ProjectViewSet(viewsets.ModelViewSet):
     queryset = Project.objects.all()
     serializer_class = ProjectSerializer
-    permission_classes = [IsAuthenticated, IsAuthorOfProject, IsContributorOFproject]
+    permission_classes = [IsAuthenticated, IsAuthorOfProject, IsContributorOfProject]
+    pagination_class = PageNumberPagination
 
     def list(self, request):
         query = request.GET.get("query", None)

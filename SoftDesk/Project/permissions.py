@@ -10,7 +10,7 @@ class IsAuthorOfProject(permissions.BasePermission):
         return obj.author == request.user
 
 
-class IsContributorOFproject(permissions.BasePermission):
+class IsContributorOfProject(permissions.BasePermission):
     message = "Vous n'êtes pas autorisé à modifier ce projet."
 
     def has_object_permission(self, request, view, obj):
