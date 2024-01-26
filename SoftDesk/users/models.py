@@ -9,7 +9,6 @@ from comment.models import Comment
 
 # Create your models here.
 class User(AbstractUser):
-    # STATUT = (('option1', 'Chef de projet')('option2', 'Manager'),('option3', 'Employé'))
     CHOICES = (("oui", "Oui"), ("non", "Non"))
     username = models.CharField(max_length=255, unique=True)
     first_name = models.CharField(max_length=128, blank=True)
@@ -49,9 +48,8 @@ class User(AbstractUser):
 
     def save(self, *args, **kwargs):
         if self.age is not None and self.age < 15:
-            raise ValueError(
-                "L'utilisateur doit avoir au moins 15 ans pour créer un espace."
-            )
+            self.can_data_be_shared = "Non"
+
         self.set_password(self.password)
         super().save(*args, **kwargs)
 
