@@ -13,7 +13,7 @@ from rest_framework.pagination import PageNumberPagination
 class CommentViewSets(viewsets.ModelViewSet):
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer
-    permission_classes = [IsAuthorOfComment]
+    permission_classes = [IsAuthenticated, IsAuthorOfComment]
     pagination_class = PageNumberPagination
 
     def list(self, request):
